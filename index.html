@@ -10,15 +10,12 @@ font-family:Arial,Helvetica,sans-serif;
 text-align:center;
 padding:40px;
 margin:0;
-
-/* BACKGROUND */
 background-image:url("https://baotangtonducthang.vn/upload/filemanage/z4766334399729_cf94ba7d6139a98a98f7e30ce41336b3.jpg");
 background-size:cover;
 background-position:center;
 background-attachment:fixed;
 }
 
-/* Lớp phủ làm nền dịu để chữ dễ đọc */
 body::before{
 content:"";
 position:fixed;
@@ -35,26 +32,18 @@ width:140px;
 margin-bottom:10px;
 }
 
-h1{
-color:#ffffff;
-margin-top:5px;
-}
-
-p{
-color:#f0f0f0;
-}
-
 .card{
 background:rgba(255,255,255,0.9);
 padding:30px;
 border-radius:14px;
 max-width:520px;
 margin:auto;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
+box-shadow:0 10px 25px rgba(0,0,0,0.35);
 }
 
 .card h1{
 color:#222;
+margin-top:5px;
 }
 
 .card p{
@@ -67,17 +56,15 @@ justify-content:space-between;
 margin-top:25px;
 }
 
-.emoji{
-font-size:48px;
+.rating-btn{
 cursor:pointer;
-padding:10px;
-border-radius:10px;
-transition:0.2s;
+padding:12px;
+border-radius:12px;
+transition:all 0.2s ease;
 }
 
-.emoji:hover{
-background:#f0f0f0;
-transform:scale(1.2);
+.emoji{
+font-size:52px;
 }
 
 .label{
@@ -87,6 +74,19 @@ color:#222;
 font-weight:600;
 }
 
+/* HOVER */
+.rating-btn:hover{
+background:#ffffff;
+transform:scale(1.15);
+box-shadow:0 0 12px rgba(255,255,255,0.8);
+}
+
+/* EFFECT WHEN CLICKED */
+.rating-btn:active{
+transform:scale(0.95);
+box-shadow:0 0 25px rgba(255,255,255,1);
+}
+
 /* POPUP */
 .modal{
 position:fixed;
@@ -94,7 +94,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.6);
+background:rgba(0,0,0,0.65);
 display:none;
 align-items:center;
 justify-content:center;
@@ -102,27 +102,40 @@ justify-content:center;
 
 .modal-content{
 background:white;
-padding:30px;
-border-radius:14px;
+padding:35px;
+border-radius:16px;
 text-align:center;
-max-width:400px;
-animation:fadeIn 0.3s ease;
+max-width:420px;
+animation:popupZoom 0.4s ease;
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
 }
 
 .modal-content img{
 width:140px;
 margin-bottom:10px;
+animation:bow 1s ease;
 }
 
 .thank-text{
-font-size:22px;
+font-size:24px;
 font-weight:bold;
 color:#2c7a2c;
+margin-bottom:6px;
 }
 
-@keyframes fadeIn{
-from{transform:scale(0.9);opacity:0}
-to{transform:scale(1);opacity:1}
+/* POPUP APPEAR ANIMATION */
+@keyframes popupZoom{
+0%{transform:scale(0.6);opacity:0}
+60%{transform:scale(1.05)}
+100%{transform:scale(1);opacity:1}
+}
+
+/* BOW EFFECT */
+@keyframes bow{
+0%{transform:rotate(0deg)}
+30%{transform:rotate(10deg)}
+60%{transform:rotate(-10deg)}
+100%{transform:rotate(0deg)}
 }
 
 </style>
@@ -138,22 +151,22 @@ to{transform:scale(1);opacity:1}
 
 <div class="emojis">
 
-<div onclick="submitRating('Không hài lòng')">
+<div class="rating-btn" onclick="submitRating('Không hài lòng')">
 <div class="emoji">😡</div>
 <div class="label">Không hài lòng</div>
 </div>
 
-<div onclick="submitRating('Bình thường')">
+<div class="rating-btn" onclick="submitRating('Bình thường')">
 <div class="emoji">😐</div>
 <div class="label">Bình thường</div>
 </div>
 
-<div onclick="submitRating('Hài lòng')">
+<div class="rating-btn" onclick="submitRating('Hài lòng')">
 <div class="emoji">😊</div>
 <div class="label">Hài lòng</div>
 </div>
 
-<div onclick="submitRating('Rất hài lòng')">
+<div class="rating-btn" onclick="submitRating('Rất hài lòng')">
 <div class="emoji">😍</div>
 <div class="label">Rất hài lòng</div>
 </div>
@@ -161,7 +174,6 @@ to{transform:scale(1);opacity:1}
 </div>
 </div>
 
-<!-- POPUP CẢM ƠN -->
 <div class="modal" id="thankModal">
 <div class="modal-content">
 
@@ -173,14 +185,13 @@ to{transform:scale(1);opacity:1}
 </div>
 </div>
 
-<!-- ÂM THANH TING -->
 <audio id="tingSound">
 <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5c6c7a9c89.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbwlaEs6fiwkVS4OG4mWKDWvPtqCAX4-PvEvGhDYvrpuIg3B6oXbdT8qxV2twGG6Vb_yXw/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbzQHYXOtC82-HSSkjOpCNXlzLyV82LutAxIOeYCw4nI5xSw5lcFLxIX2LexQ_GfKAse0w/exec";
 
 function submitRating(rating){
 
@@ -214,6 +225,106 @@ modal.style.display = "none";
 },3000);
 
 }
+
+</script>
+
+</body>
+</html>
+
+
+<!-- ================= DASHBOARD CHO QUẢN LÝ ================= -->
+<!-- Lưu phần dưới thành file dashboard.html nếu muốn dùng trang thống kê riêng -->
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard Thống Kê Đánh Giá</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f9;margin:0;padding:40px;text-align:center}
+h1{margin-bottom:30px}
+
+.stats{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
+.card{
+background:white;
+padding:25px;
+border-radius:14px;
+width:180px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.value{
+font-size:40px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.label{
+font-size:16px;
+color:#555
+}
+
+.update{
+margin-top:30px;
+color:#777
+}
+</style>
+</head>
+<body>
+
+<h1>Dashboard Thống kê đánh giá</h1>
+
+<div class="stats">
+
+<div class="card">
+<div class="label">😡 Không hài lòng</div>
+<div class="value" id="bad">0</div>
+</div>
+
+<div class="card">
+<div class="label">😐 Bình thường</div>
+<div class="value" id="normal">0</div>
+</div>
+
+<div class="card">
+<div class="label">😊 Hài lòng</div>
+<div class="value" id="good">0</div>
+</div>
+
+<div class="card">
+<div class="label">😍 Rất hài lòng</div>
+<div class="value" id="great">0</div>
+</div>
+
+</div>
+
+<div class="update">Dữ liệu cập nhật mỗi 5 giây</div>
+
+<script>
+
+const dashboardURL = "PASTE_GOOGLE_SCRIPT_URL_HERE";
+
+async function loadStats(){
+
+try{
+
+let res = await fetch(dashboardURL);
+let data = await res.json();
+
+document.getElementById("bad").innerText = data.bad;
+document.getElementById("normal").innerText = data.normal;
+document.getElementById("good").innerText = data.good;
+document.getElementById("great").innerText = data.great;
+
+}catch(e){
+console.log("Không lấy được dữ liệu");
+}
+
+}
+
+loadStats();
+
+setInterval(loadStats,5000);
 
 </script>
 
