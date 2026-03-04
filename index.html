@@ -1,330 +1,271 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8" />
-<title>Đánh giá trải nghiệm</title>
-<style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visitor Experience Rating</title>
 
+<style>
 body{
-font-family:Arial,Helvetica,sans-serif;
-text-align:center;
-padding:40px;
-margin:0;
-background-image:url("https://baotangtonducthang.vn/upload/filemanage/z4766334399729_cf94ba7d6139a98a98f7e30ce41336b3.jpg");
-background-size:cover;
-background-position:center;
-background-attachment:fixed;
+    font-family: Arial, sans-serif;
+    text-align:center;
+    margin:0;
+    padding:0;
+    background-image:url("https://baotangtonducthang.vn/upload/filemanage/z4766334399729_cf94ba7d6139a98a98f7e30ce41336b3.jpg");
+    background-size:cover;
+    background-position:center;
 }
 
-body::before{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.35);
-z-index:-1;
+.container{
+    background:rgba(0,0,0,0.65);
+    color:white;
+    max-width:800px;
+    margin:60px auto;
+    padding:40px;
+    border-radius:15px;
 }
 
 .logo{
-width:140px;
-margin-bottom:10px;
+    width:120px;
+    margin-bottom:20px;
 }
 
-.card{
-background:rgba(255,255,255,0.9);
-padding:30px;
-border-radius:14px;
-max-width:520px;
-margin:auto;
-box-shadow:0 10px 25px rgba(0,0,0,0.35);
+h1{
+    margin-bottom:30px;
 }
 
-.card h1{
-color:#222;
-margin-top:5px;
+.rating{
+    display:flex;
+    justify-content:center;
+    gap:30px;
+    flex-wrap:wrap;
 }
 
-.card p{
-color:#444;
+.btn{
+    font-size:55px;
+    cursor:pointer;
+    transition:all 0.25s ease;
 }
 
-.emojis{
-display:flex;
-justify-content:space-between;
-margin-top:25px;
+.btn span{
+    display:block;
+    font-size:16px;
+    margin-top:8px;
 }
 
-.rating-btn{
-cursor:pointer;
-padding:12px;
-border-radius:12px;
-transition:all 0.2s ease;
+.btn:hover{
+    transform:scale(1.25);
 }
 
-.emoji{
-font-size:52px;
+.glow{
+    transform:scale(1.35);
+    text-shadow:
+        0 0 10px #fff,
+        0 0 20px #ffd700,
+        0 0 30px #ffd700,
+        0 0 40px #ffae00;
 }
 
-.label{
-font-size:14px;
-margin-top:6px;
-color:#222;
-font-weight:600;
+.popup{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:none;
+    justify-content:center;
+    align-items:center;
 }
 
-/* HOVER */
-.rating-btn:hover{
-background:#ffffff;
-transform:scale(1.15);
-box-shadow:0 0 12px rgba(255,255,255,0.8);
+.popup-content{
+    background:white;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    animation:popup 0.45s ease;
 }
 
-/* EFFECT WHEN CLICKED */
-.rating-btn:active{
-transform:scale(0.95);
-box-shadow:0 0 25px rgba(255,255,255,1);
+.popup-content h2{
+    color:#222;
+    font-size:26px;
 }
 
-/* POPUP */
-.modal{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.65);
-display:none;
-align-items:center;
-justify-content:center;
+.popup-content p{
+    color:#444;
+    font-size:18px;
 }
 
-.modal-content{
-background:white;
-padding:35px;
-border-radius:16px;
-text-align:center;
-max-width:420px;
-animation:popupZoom 0.4s ease;
-box-shadow:0 15px 40px rgba(0,0,0,0.5);
+.popup img{
+    width:150px;
+    margin-top:15px;
+    animation:robotBow 2.4s cubic-bezier(.4,0,.2,1) infinite;
+    transform-origin:bottom center;
 }
 
-.modal-content img{
-width:140px;
-margin-bottom:10px;
-animation:bow 1s ease;
+@keyframes popup{
+    from{transform:scale(0.6);opacity:0}
+    to{transform:scale(1);opacity:1}
 }
 
-.thank-text{
-font-size:24px;
-font-weight:bold;
-color:#2c7a2c;
-margin-bottom:6px;
+@keyframes robotBow{
+    0%{transform:rotate(0deg)}
+    15%{transform:rotate(0deg)}
+    35%{transform:rotate(10deg)}
+    55%{transform:rotate(14deg)}
+    75%{transform:rotate(6deg)}
+    100%{transform:rotate(0deg)}
 }
 
-/* POPUP APPEAR ANIMATION */
-@keyframes popupZoom{
-0%{transform:scale(0.6);opacity:0}
-60%{transform:scale(1.05)}
-100%{transform:scale(1);opacity:1}
+/* language button */
+.lang-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:40px;
+    border:none;
+    cursor:pointer;
+    background:white;
+    border-radius:6px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* BOW EFFECT */
-@keyframes bow{
-0%{transform:rotate(0deg)}
-30%{transform:rotate(10deg)}
-60%{transform:rotate(-10deg)}
-100%{transform:rotate(0deg)}
+.lang-btn img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:6px;
 }
 
 </style>
 </head>
+
 <body>
 
-<div class="card" id="ratingScreen">
+<div class="container">
 
-<img class="logo" src="logo.png" alt="Logo Bao Tang Ton Duc Thang">
+<img class="logo" src="logo.png" alt="Logo">
 
-<h1>Đánh giá trải nghiệm</h1>
-<p>Quý khách vui lòng cho biết mức độ hài lòng sau khi tham quan</p>
+<h1 id="title">Quý khách đánh giá trải nghiệm tham quan</h1>
 
-<div class="emojis">
+<div class="rating">
 
-<div class="rating-btn" onclick="submitRating('Không hài lòng')">
-<div class="emoji">😡</div>
-<div class="label">Không hài lòng</div>
+<div class="btn" onclick="rate('Không hài lòng', this)">
+😠
+<span id="t1">Không hài lòng</span>
 </div>
 
-<div class="rating-btn" onclick="submitRating('Bình thường')">
-<div class="emoji">😐</div>
-<div class="label">Bình thường</div>
+<div class="btn" onclick="rate('Bình thường', this)">
+😐
+<span id="t2">Bình thường</span>
 </div>
 
-<div class="rating-btn" onclick="submitRating('Hài lòng')">
-<div class="emoji">😊</div>
-<div class="label">Hài lòng</div>
+<div class="btn" onclick="rate('Hài lòng', this)">
+🙂
+<span id="t3">Hài lòng</span>
 </div>
 
-<div class="rating-btn" onclick="submitRating('Rất hài lòng')">
-<div class="emoji">😍</div>
-<div class="label">Rất hài lòng</div>
+<div class="btn" onclick="rate('Rất hài lòng', this)">
+😍
+<span id="t4">Rất hài lòng</span>
 </div>
 
 </div>
-</div>
-
-<div class="modal" id="thankModal">
-<div class="modal-content">
-
-<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="bow thank you">
-
-<div class="thank-text">Cảm ơn quý khách đã đánh giá!</div>
-<p>Chúc quý khách một ngày tốt đẹp</p>
 
 </div>
-</div>
 
-<audio id="tingSound">
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5c6c7a9c89.mp3" type="audio/mpeg">
+<audio id="ting">
+<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6b8c.mp3?filename=correct-2-46134.mp3" type="audio/mpeg">
 </audio>
+
+<div class="popup" id="popup">
+
+<div class="popup-content">
+
+<h2 id="thank">Cảm ơn quý khách đã đánh giá</h2>
+<p id="wish">Chúc quý khách một ngày tốt lành</p>
+
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Robot">
+
+</div>
+
+</div>
+
+<button class="lang-btn" onclick="toggleLang()">
+<img id="flag" src="https://flagcdn.com/w80/gb.png">
+</button>
 
 <script>
 
 const scriptURL = "https://script.google.com/macros/s/AKfycbzQHYXOtC82-HSSkjOpCNXlzLyV82LutAxIOeYCw4nI5xSw5lcFLxIX2LexQ_GfKAse0w/exec";
 
-function submitRating(rating){
+function rate(value, el){
 
-var sound = document.getElementById("tingSound");
-sound.currentTime = 0;
-sound.play();
+    document.getElementById("ting").play();
 
-fetch(scriptURL, {
-method: 'POST',
-mode: 'no-cors',
-headers: {
-'Content-Type': 'application/json'
-},
-body: JSON.stringify({
-rating: rating,
-time: new Date().toLocaleString()
-})
-});
+    el.classList.add("glow");
 
-showThankYou();
-}
+    setTimeout(()=>{
+        el.classList.remove("glow");
+    },600);
 
-function showThankYou(){
+    fetch(scriptURL,{
+        method:"POST",
+        body:JSON.stringify({rating:value}),
+        headers:{"Content-Type":"application/json"}
+    });
 
-let modal = document.getElementById("thankModal");
+    const popup=document.getElementById("popup");
+    popup.style.display="flex";
 
-modal.style.display = "flex";
-
-setTimeout(function(){
-modal.style.display = "none";
-},3000);
+    setTimeout(()=>{
+        popup.style.display="none";
+    },2500);
 
 }
 
-</script>
+let lang="vi";
 
-</body>
-</html>
+function toggleLang(){
 
+if(lang==="vi"){
 
-<!-- ================= DASHBOARD CHO QUẢN LÝ ================= -->
-<!-- Lưu phần dưới thành file dashboard.html nếu muốn dùng trang thống kê riêng -->
+lang="en";
 
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<title>Dashboard Thống Kê Đánh Giá</title>
-<style>
-body{font-family:Arial,Helvetica,sans-serif;background:#f4f6f9;margin:0;padding:40px;text-align:center}
-h1{margin-bottom:30px}
+document.getElementById("title").innerText="Please rate your visit experience";
 
-.stats{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
-.card{
-background:white;
-padding:25px;
-border-radius:14px;
-width:180px;
-box-shadow:0 10px 20px rgba(0,0,0,0.1);
-}
+document.getElementById("t1").innerText="Very Dissatisfied";
+document.getElementById("t2").innerText="Neutral";
+document.getElementById("t3").innerText="Satisfied";
+document.getElementById("t4").innerText="Very Satisfied";
 
-.value{
-font-size:40px;
-font-weight:bold;
-margin-top:10px;
-}
+document.getElementById("thank").innerText="Thank you for your feedback";
 
-.label{
-font-size:16px;
-color:#555
-}
+document.getElementById("wish").innerText="Have a wonderful day";
 
-.update{
-margin-top:30px;
-color:#777
-}
-</style>
-</head>
-<body>
+document.getElementById("flag").src="https://flagcdn.com/w80/vn.png";
 
-<h1>Dashboard Thống kê đánh giá</h1>
+}else{
 
-<div class="stats">
+lang="vi";
 
-<div class="card">
-<div class="label">😡 Không hài lòng</div>
-<div class="value" id="bad">0</div>
-</div>
+document.getElementById("title").innerText="Quý khách đánh giá trải nghiệm tham quan";
 
-<div class="card">
-<div class="label">😐 Bình thường</div>
-<div class="value" id="normal">0</div>
-</div>
+document.getElementById("t1").innerText="Không hài lòng";
+document.getElementById("t2").innerText="Bình thường";
+document.getElementById("t3").innerText="Hài lòng";
+document.getElementById("t4").innerText="Rất hài lòng";
 
-<div class="card">
-<div class="label">😊 Hài lòng</div>
-<div class="value" id="good">0</div>
-</div>
+document.getElementById("thank").innerText="Cảm ơn quý khách đã đánh giá";
 
-<div class="card">
-<div class="label">😍 Rất hài lòng</div>
-<div class="value" id="great">0</div>
-</div>
+document.getElementById("wish").innerText="Chúc quý khách một ngày tốt lành";
 
-</div>
-
-<div class="update">Dữ liệu cập nhật mỗi 5 giây</div>
-
-<script>
-
-const dashboardURL = "PASTE_GOOGLE_SCRIPT_URL_HERE";
-
-async function loadStats(){
-
-try{
-
-let res = await fetch(dashboardURL);
-let data = await res.json();
-
-document.getElementById("bad").innerText = data.bad;
-document.getElementById("normal").innerText = data.normal;
-document.getElementById("good").innerText = data.good;
-document.getElementById("great").innerText = data.great;
-
-}catch(e){
-console.log("Không lấy được dữ liệu");
-}
+document.getElementById("flag").src="https://flagcdn.com/w80/gb.png";
 
 }
 
-loadStats();
-
-setInterval(loadStats,5000);
+}
 
 </script>
 
