@@ -1,0 +1,87 @@
+<!-- ================= DASHBOARD CHO QUẢN LÝ ================= -->
+.stats{display:flex;justify-content:center;gap:25px;flex-wrap:wrap}
+.card{
+background:white;
+padding:25px;
+border-radius:14px;
+width:180px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+.value{
+font-size:40px;
+font-weight:bold;
+margin-top:10px;
+}
+
+.label{
+font-size:16px;
+color:#555
+}
+
+.update{
+margin-top:30px;
+color:#777
+}
+</style>
+</head>
+<body>
+
+<h1>Dashboard Thống kê đánh giá</h1>
+
+<div class="stats">
+
+<div class="card">
+<div class="label">😡 Không hài lòng</div>
+<div class="value" id="bad">0</div>
+</div>
+
+<div class="card">
+<div class="label">😐 Bình thường</div>
+<div class="value" id="normal">0</div>
+</div>
+
+<div class="card">
+<div class="label">😊 Hài lòng</div>
+<div class="value" id="good">0</div>
+</div>
+
+<div class="card">
+<div class="label">😍 Rất hài lòng</div>
+<div class="value" id="great">0</div>
+</div>
+
+</div>
+
+<div class="update">Dữ liệu cập nhật mỗi 5 giây</div>
+
+<script>
+
+const dashboardURL = "PASTE_GOOGLE_SCRIPT_URL_HERE";
+
+async function loadStats(){
+
+try{
+
+let res = await fetch(dashboardURL);
+let data = await res.json();
+
+document.getElementById("bad").innerText = data.bad;
+document.getElementById("normal").innerText = data.normal;
+document.getElementById("good").innerText = data.good;
+document.getElementById("great").innerText = data.great;
+
+}catch(e){
+console.log("Không lấy được dữ liệu");
+}
+
+}
+
+loadStats();
+
+setInterval(loadStats,5000);
+
+</script>
+
+</body>
+</html>
