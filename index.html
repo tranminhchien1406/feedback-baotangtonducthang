@@ -4,24 +4,88 @@
 <meta charset="UTF-8" />
 <title>Đánh giá trải nghiệm</title>
 <style>
-body{font-family:Arial,Helvetica,sans-serif;background:#f5f5f5;text-align:center;padding:40px}
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+text-align:center;
+padding:40px;
+margin:0;
+
+/* BACKGROUND */
+background-image:url("https://baotangtonducthang.vn/upload/filemanage/z4766334399729_cf94ba7d6139a98a98f7e30ce41336b3.jpg");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+/* Lớp phủ làm nền dịu để chữ dễ đọc */
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.35);
+z-index:-1;
+}
 
 .logo{
 width:140px;
 margin-bottom:10px;
 }
 
-h1{color:#333;margin-top:5px}
+h1{
+color:#ffffff;
+margin-top:5px;
+}
 
-.card{background:white;padding:30px;border-radius:12px;max-width:520px;margin:auto;box-shadow:0 10px 25px rgba(0,0,0,0.1)}
+p{
+color:#f0f0f0;
+}
 
-.emojis{display:flex;justify-content:space-between;margin-top:25px}
+.card{
+background:rgba(255,255,255,0.9);
+padding:30px;
+border-radius:14px;
+max-width:520px;
+margin:auto;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
 
-.emoji{font-size:48px;cursor:pointer;padding:10px;border-radius:10px;transition:0.2s}
+.card h1{
+color:#222;
+}
 
-.emoji:hover{background:#f0f0f0;transform:scale(1.2)}
+.card p{
+color:#444;
+}
 
-.label{font-size:14px;margin-top:6px}
+.emojis{
+display:flex;
+justify-content:space-between;
+margin-top:25px;
+}
+
+.emoji{
+font-size:48px;
+cursor:pointer;
+padding:10px;
+border-radius:10px;
+transition:0.2s;
+}
+
+.emoji:hover{
+background:#f0f0f0;
+transform:scale(1.2);
+}
+
+.label{
+font-size:14px;
+margin-top:6px;
+color:#222;
+font-weight:600;
+}
 
 /* POPUP */
 .modal{
@@ -30,7 +94,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.5);
+background:rgba(0,0,0,0.6);
 display:none;
 align-items:center;
 justify-content:center;
@@ -51,7 +115,7 @@ margin-bottom:10px;
 }
 
 .thank-text{
-font-size:20px;
+font-size:22px;
 font-weight:bold;
 color:#2c7a2c;
 }
@@ -67,7 +131,6 @@ to{transform:scale(1);opacity:1}
 
 <div class="card" id="ratingScreen">
 
-<!-- LOGO BẢO TÀNG: có thể thay logo.png bằng link logo thật -->
 <img class="logo" src="logo.png" alt="Logo Bao Tang Ton Duc Thang">
 
 <h1>Đánh giá trải nghiệm</h1>
@@ -117,11 +180,10 @@ to{transform:scale(1);opacity:1}
 
 <script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbzQHYXOtC82-HSSkjOpCNXlzLyV82LutAxIOeYCw4nI5xSw5lcFLxIX2LexQ_GfKAse0w/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbwlaEs6fiwkVS4OG4mWKDWvPtqCAX4-PvEvGhDYvrpuIg3B6oXbdT8qxV2twGG6Vb_yXw/exec";
 
 function submitRating(rating){
 
-// phát âm thanh ting
 var sound = document.getElementById("tingSound");
 sound.currentTime = 0;
 sound.play();
