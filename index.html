@@ -198,7 +198,7 @@ h1{
 
 <script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbztGO_TiWAOcNPpkjOJOynGxJZ4eAf9ukrlY6U3eF1JQyuTzom1EE32Rnh3K2XBT1iw_w/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbwC7G1CdG5FRSlMcTaiL6ASBOUKOL1QRtKue_OPQivs7NnvnC7z8Sl8FbF7CRcY4v6o_A/exec";
 
 function rate(value, el){
 
@@ -220,6 +220,10 @@ function rate(value, el){
 
     fetch(scriptURL,{
         method:"POST",
+        mode: "no-cors",
+        headers: {
+            "Content-Type": "application/json"
+  },
         body:JSON.stringify(data),
         headers:{"Content-Type":"application/json"}
     });
