@@ -181,8 +181,21 @@ function rate(value,el){
     const minutes = String(now.getMinutes()).padStart(2,'0');
     const seconds = String(now.getSeconds()).padStart(2,'0');
 
+    // convert rating language depending on selected UI language
+    let ratingText = value;
+
+    if(currentLang === "en"){
+        const map = {
+            "Không hài lòng":"Very Dissatisfied",
+            "Bình thường":"Neutral",
+            "Hài lòng":"Satisfied",
+            "Rất hài lòng":"Very Satisfied"
+        };
+        ratingText = map[value] || value;
+    }
+
     const data = {
-        rating:value,
+        rating: ratingText,
         date: now.toISOString().split('T')[0],
         time: `${hours}:${minutes}:${seconds}`
     };
