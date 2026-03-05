@@ -3,67 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visitor Experience Rating</title>
+<title>Đánh giá trải nghiệm - Bảo tàng Tôn Đức Thắng</title>
 
 <style>
 body{
-    font-family: Arial, sans-serif;
-    text-align:center;
     margin:0;
-    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align:center;
     background-image:url("https://baotangtonducthang.vn/upload/filemanage/z4766334399729_cf94ba7d6139a98a98f7e30ce41336b3.jpg");
     background-size:cover;
     background-position:center;
+    color:white;
 }
 
 .container{
-    background:rgba(0,0,0,0.65);
-    color:white;
-    max-width:800px;
-    margin:60px auto;
+    background:rgba(0,0,0,0.55);
     padding:40px;
-    border-radius:15px;
+    min-height:100vh;
 }
 
 .logo{
     width:120px;
-    margin-bottom:20px;
+    margin-bottom:10px;
 }
 
 h1{
-    margin-bottom:30px;
+    margin-bottom:40px;
 }
 
 .rating{
     display:flex;
     justify-content:center;
-    gap:30px;
+    gap:35px;
     flex-wrap:wrap;
 }
 
-.btn{
-    font-size:55px;
+.emoji{
+    font-size:65px;
     cursor:pointer;
-    transition:all 0.25s ease;
+    transition:transform 0.2s, filter 0.2s;
 }
 
-.btn span{
-    display:block;
-    font-size:16px;
-    margin-top:8px;
-}
-
-.btn:hover{
-    transform:scale(1.25);
+.emoji:hover{
+    transform:scale(1.2);
 }
 
 .glow{
-    transform:scale(1.35);
-    text-shadow:
-        0 0 10px #fff,
-        0 0 20px #ffd700,
-        0 0 30px #ffd700,
-        0 0 40px #ffae00;
+    animation:glow 0.6s ease;
+}
+
+@keyframes glow{
+    0%{filter:drop-shadow(0 0 0px yellow)}
+    50%{filter:drop-shadow(0 0 20px yellow)}
+    100%{filter:drop-shadow(0 0 0px yellow)}
+}
+
+.label{
+    margin-top:10px;
+    font-size:18px;
 }
 
 .popup{
@@ -72,7 +69,7 @@ h1{
     left:0;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.7);
+    background:rgba(0,0,0,0.6);
     display:none;
     justify-content:center;
     align-items:center;
@@ -80,62 +77,37 @@ h1{
 
 .popup-content{
     background:white;
+    color:#333;
     padding:40px;
-    border-radius:20px;
+    border-radius:18px;
     text-align:center;
-    animation:popup 0.45s ease;
-}
-
-.popup-content h2{
-    color:#222;
-    font-size:26px;
-}
-
-.popup-content p{
-    color:#444;
-    font-size:18px;
+    animation:fadeIn 0.4s ease;
 }
 
 .popup img{
-    width:150px;
-    margin-top:15px;
-    animation:robotBow 2.4s cubic-bezier(.4,0,.2,1) infinite;
-    transform-origin:bottom center;
+    width:120px;
+    margin-bottom:10px;
+    animation:robotMove 2s infinite ease-in-out;
 }
 
-@keyframes popup{
-    from{transform:scale(0.6);opacity:0}
-    to{transform:scale(1);opacity:1}
+@keyframes robotMove{
+    0%{transform:translateY(0)}
+    50%{transform:translateY(-8px)}
+    100%{transform:translateY(0)}
 }
 
-@keyframes robotBow{
-    0%{transform:rotate(0deg)}
-    15%{transform:rotate(0deg)}
-    35%{transform:rotate(10deg)}
-    55%{transform:rotate(14deg)}
-    75%{transform:rotate(6deg)}
-    100%{transform:rotate(0deg)}
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.9)}
+    to{opacity:1; transform:scale(1)}
 }
 
-/* language button */
 .lang-btn{
     position:fixed;
     bottom:20px;
     right:20px;
-    width:60px;
-    height:40px;
-    border:none;
+    width:50px;
+    height:35px;
     cursor:pointer;
-    background:white;
-    border-radius:6px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.3);
-}
-
-.lang-btn img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    border-radius:6px;
 }
 
 </style>
@@ -151,66 +123,59 @@ h1{
 
 <div class="rating">
 
-<div class="btn" onclick="rate('Không hài lòng', this)">
-😠
-<span id="t1">Không hài lòng</span>
+<div onclick="rate('Không hài lòng',this)">
+<div class="emoji">😠</div>
+<div class="label" id="l1">Không hài lòng</div>
 </div>
 
-<div class="btn" onclick="rate('Bình thường', this)">
-😐
-<span id="t2">Bình thường</span>
+<div onclick="rate('Bình thường',this)">
+<div class="emoji">😐</div>
+<div class="label" id="l2">Bình thường</div>
 </div>
 
-<div class="btn" onclick="rate('Hài lòng', this)">
-🙂
-<span id="t3">Hài lòng</span>
+<div onclick="rate('Hài lòng',this)">
+<div class="emoji">🙂</div>
+<div class="label" id="l3">Hài lòng</div>
 </div>
 
-<div class="btn" onclick="rate('Rất hài lòng', this)">
-😍
-<span id="t4">Rất hài lòng</span>
+<div onclick="rate('Rất hài lòng',this)">
+<div class="emoji">😍</div>
+<div class="label" id="l4">Rất hài lòng</div>
 </div>
 
 </div>
 
 </div>
 
-<audio id="ting">
-<source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_115b9b6b8c.mp3?filename=correct-2-46134.mp3" type="audio/mpeg">
-</audio>
+<audio id="ting" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
 
 <div class="popup" id="popup">
-
 <div class="popup-content">
-
-<h2 id="thank">Cảm ơn quý khách đã đánh giá</h2>
+<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png">
+<h2 id="thanks">Cảm ơn quý khách đã đánh giá</h2>
 <p id="wish">Chúc quý khách một ngày tốt lành</p>
-
-<img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Robot">
-
+</div>
 </div>
 
-</div>
-
-<button class="lang-btn" onclick="toggleLang()">
-<img id="flag" src="https://flagcdn.com/w80/gb.png">
-</button>
+<img id="langToggle" class="lang-btn" src="https://flagcdn.com/w40/gb.png" onclick="toggleLang()">
 
 <script>
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbwC7G1CdG5FRSlMcTaiL6ASBOUKOL1QRtKue_OPQivs7NnvnC7z8Sl8FbF7CRcY4v6o_A/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbx4OSeOmp6jx4SEoqS3n13yYFoMvyEmBW247_l20dc098QZLVAFVM4k4B3-uuXRwQKEOw/exec";
+let currentLang="vi";
 
-function rate(value, el){
+function rate(value,el){
 
     document.getElementById("ting").play();
 
-    el.classList.add("glow");
+    const emoji = el.querySelector(".emoji");
+    emoji.classList.add("glow");
 
     setTimeout(()=>{
-        el.classList.remove("glow");
+        emoji.classList.remove("glow");
     },600);
 
-        const now = new Date();
+    const now = new Date();
 
     const hours = String(now.getHours()).padStart(2,'0');
     const minutes = String(now.getMinutes()).padStart(2,'0');
@@ -220,14 +185,14 @@ function rate(value, el){
         rating:value,
         date: now.toISOString().split('T')[0],
         time: `${hours}:${minutes}:${seconds}`
-    }
     };
 
     fetch(scriptURL,{
         method:"POST",
         body:JSON.stringify(data),
         headers:{"Content-Type":"application/json"}
-    });
+    })
+    .catch(err=>console.log(err));
 
     const popup=document.getElementById("popup");
     popup.style.display="flex";
@@ -235,49 +200,38 @@ function rate(value, el){
     setTimeout(()=>{
         popup.style.display="none";
     },2500);
-
 }
-
-let lang="vi";
 
 function toggleLang(){
 
-if(lang==="vi"){
+    if(currentLang==="vi"){
 
-lang="en";
+        document.getElementById("title").innerText="Please rate your visit experience";
+        document.getElementById("l1").innerText="Dissatisfied";
+        document.getElementById("l2").innerText="Neutral";
+        document.getElementById("l3").innerText="Satisfied";
+        document.getElementById("l4").innerText="Very satisfied";
+        document.getElementById("thanks").innerText="Thank you for your feedback";
+        document.getElementById("wish").innerText="Have a wonderful day";
 
-document.getElementById("title").innerText="Please rate your visit experience";
+        document.getElementById("langToggle").src="https://flagcdn.com/w40/vn.png";
 
-document.getElementById("t1").innerText="Very Dissatisfied";
-document.getElementById("t2").innerText="Neutral";
-document.getElementById("t3").innerText="Satisfied";
-document.getElementById("t4").innerText="Very Satisfied";
+        currentLang="en";
 
-document.getElementById("thank").innerText="Thank you for your feedback";
+    }else{
 
-document.getElementById("wish").innerText="Have a wonderful day";
+        document.getElementById("title").innerText="Quý khách đánh giá trải nghiệm tham quan";
+        document.getElementById("l1").innerText="Không hài lòng";
+        document.getElementById("l2").innerText="Bình thường";
+        document.getElementById("l3").innerText="Hài lòng";
+        document.getElementById("l4").innerText="Rất hài lòng";
+        document.getElementById("thanks").innerText="Cảm ơn quý khách đã đánh giá";
+        document.getElementById("wish").innerText="Chúc quý khách một ngày tốt lành";
 
-document.getElementById("flag").src="https://flagcdn.com/w80/vn.png";
+        document.getElementById("langToggle").src="https://flagcdn.com/w40/gb.png";
 
-}else{
-
-lang="vi";
-
-document.getElementById("title").innerText="Quý khách đánh giá trải nghiệm tham quan";
-
-document.getElementById("t1").innerText="Không hài lòng";
-document.getElementById("t2").innerText="Bình thường";
-document.getElementById("t3").innerText="Hài lòng";
-document.getElementById("t4").innerText="Rất hài lòng";
-
-document.getElementById("thank").innerText="Cảm ơn quý khách đã đánh giá";
-
-document.getElementById("wish").innerText="Chúc quý khách một ngày tốt lành";
-
-document.getElementById("flag").src="https://flagcdn.com/w80/gb.png";
-
-}
-
+        currentLang="vi";
+    }
 }
 
 </script>
