@@ -10,10 +10,19 @@ body{
     margin:0;
     font-family:Arial, Helvetica, sans-serif;
     text-align:center;
-    background-image:url("https://baotangtonducthang.vn/upload/filemanage/z4766334399729_cf94ba7d6139a98a98f7e30ce41336b3.jpg");
+    /*background-image:url("https://baotangtonducthang.vn/upload/filemanage/z4766334399729_cf94ba7d6139a98a98f7e30ce41336b3.jpg");*/
     background-size:cover;
     background-position:center;
     color:white;
+}
+    #bgVideo{
+  position:fixed;
+  right:0;
+  bottom:0;
+  min-width:100%;
+  min-height:100%;
+  z-index:-1;
+  object-fit:cover;
 }
 
 .container{
@@ -21,6 +30,7 @@ body{
     padding:40px;
     min-height:100vh;
 }
+    
 
 .logo{
     width:120px;
@@ -112,7 +122,11 @@ h1{
 
 </style>
 </head>
-
+    
+<video autoplay muted loop id="bgVideo">
+  <source src="museum.mp4" type="video/mp4">
+</video>
+    
 <body>
 
 <div class="container">
